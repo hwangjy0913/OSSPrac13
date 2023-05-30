@@ -2,5 +2,5 @@ version : "3.0"
 
 services:
   python-app: 
-    image: jh0912/ossp_week12
+    image: jaey0913/ossprac13
     build: .
