@@ -1,6 +1,18 @@
 version : "3.0"
 
 services:
-  python-app: 
-    image: jaey0913/ossprac13
+  python-app: #생성하여 실행할 컨테이너 이름
+    image: jaey0913/ossprac13 #image명령어의 역할은
+    #1. 이미지 이름을 지정하여 Docker Compose가 해당 이미지를 사용하여 서비스를 실행하도록 지시합니다.
+    # dockerfile의 From과 docker-compose의 image: 차이
+    # Docker-compose file에서 image: 명령어 부분은 dockerfile로 이미지를 빌드 후, container실행시 쓸 이미지를 지정하는 것으로, 
+    # 즉, 여기서 당연히 container실행시 쓸 이미지는 내가 해당 컨테이너 실행하려 방금 dockerfile로 만든 이미지이므로,
+    ####(핵심)  image: 부분은 내가 지정된 dockerfile(build:…부분)로 만든 이미지 이름을 정하는 것!
+    #즉, 지정된 dockerfile에서 From…에 의해 지정된 base-image로부터 이미지 빌드 후, 이 이미지 이름을 Docker-compose file에서 image: …로 정하는 것!!!
+
+#Jenkins 관련 내용
+# 주의! - Ossprac에서 jenkins 실습 때, 파이프라인 작성시, prepare stage에서 내가 설정한 github repo를 clone 후(컨테이너 내 pipelineprac1@2 디렉토리에), 
+# build stage에서 이 python-app을 빌드하는 도커 compose 명령어를 실행할 때, 이 이미지가 빌드되니, 
+# (핵심)docker-compose 명령어에 의해 빌드될 이미지는 이후, jenkins의 push stage에서 docker-hub으로 push할 것이기에,
+# jenkins에서 push 명령어를 쓸 때의 이미지 이름과, 이 docker-compose file에서 빌드할 이미지 이름이 당연히! 동일해야 한다!
     build: .
